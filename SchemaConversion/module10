@@ -1,0 +1,33 @@
+Module 10:
+
+1. Entity type rule application
+
+->Student(StdNo PRIMARY KEY,StdName,StdAddress,StdCity,StdState,StdZip,StdEmail) table
+->Lender(LenderNo PRIMARY KEY,LendName) table
+->Loan(LoanNo PRIMARY KEY,ProcDate,DisbMethod,DisbBank,DateAuth,NoteValue,Subsidized,Rate) table
+->Institution(InstId PRIMARY KEY,InstName,InstMascot) table
+
+2. 1-M relationship rule
+
+-> Loan(LoanNo PRIMARY KEY,StdNo FOREIGN KEY references Student ,
+	LendNo FOREIGN KEY references Lender,
+	InstId FOREIGN KEY references Institution,
+ 	ProcDate,DisbMethod,DisbBank,DateAuth,NoteValue,Subsidized,Rate)
+
+3. There is no M-N relationship in the given ER diagram
+
+4. Identifying relationship rule
+
+-> DIsburseLine(DateSent PRIMARY KEY,Amount,OrigFee,GuarFee,LoanNo FOREIGN KEY) table
+
+5. Applying 1-M relationship rule
+
+Account(AccId PRIMARY KEY,AcctName,Balance, AccId FOREIGNKEY references Account1) table
+
+6. M-N relationship rule
+
+-> Owner(OwnId PRIMARYKEY,OwnName,OwnPhone)
+->Property(PropId PRIMARYKEY, BLdgName,UnitNo,Bdrms)
+->Shares((OwnId,PropId) PRIMARYKEY,StartWeek,EndWeek,
+		OwnId FOREIGN KEY REFERENCES Owner,
+		PropId FOREIGN KEY REFERENCES Property)

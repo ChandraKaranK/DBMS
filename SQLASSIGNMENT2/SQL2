@@ -1,0 +1,53 @@
+1. Find out the number of documentaries with deleted scenes.
+
+Ans: select count(*) AS No_of_Docs_with_deleted_scenes 	
+	from film inner join film_category on film.film_id=film_category.film_id inner join category on 	
+    	category.category_id=film_category.category_id 
+ 	where find_in_set('Deleted Scenes',film.special_features)>0 	
+ 	AND category.name='Documentary';
+
+2. Find out the number of sci-fi movies rented by the store managed by Jon Stephens.
+   
+Ans: select count(*) as No_Of_Sci-Fi_By_Jon from inventory,staff,store,film_category,category
+	where inventory.store_id = store.store_id
+	AND store.manager_staff_id = staff.staff_id
+	AND staff.first_name = 'Jon'
+	AND staff.last_name = 'STephens'
+	AND inventory.film_id = film_category.film_id,
+	AND film_category.category_id = category.category_id AND category.name = 'sci-fi';
+		
+3. Find out the total sales from Animation movies.
+
+Ans: select category.name,sum(amount) as Animation_Sales 
+	from payment inner join rental
+	on payment.rental_id = rental.rental_id  inner join inventory
+	on inventory.inventory_id = rental.inventory_id 
+	inner join film_category
+	on inventory.film_id=film_category.film_id 
+	inner join category  
+	on category.category_id=film_category.category_id 
+	where category.name='Animation'
+	group by category.name; 
+
+4.  Find out the top 3 rented category of movies  by “PATRICIA JOHNSON”.
+
+Ans: select category.name,count(*) as No_Of_Rentals from customer inner join rental
+	on rental.customer_id=customer.customer_id 
+	inner join inventory 
+	on inventory.inventory_id=rental.inventory_id 
+	inner join film_category
+	on film_category.film_id=inventory.film_id inner join category
+	on category.category_id=film_category.category_id
+	where cuatomer.first_name='PATRICIA' and customer.last_name='JOHNSON'  
+	group by category.name
+	order by count(*) DESC 
+	limit 3;
+
+5. Find out the number of R rated movies rented by “SUSAN WILSON”.
+
+Ans: select film.rating,count(*) as Total_R_Rentals from customer inner join rental
+	on customer.customer_id = rental.customer_id 	
+	inner join inventory
+	on inventory.inventory_id=rental.inventory_id inner join film on film.film_id=inventory.film_id 
+	where customer.first_name='SUSAN' 
+	and customer.last_name='WILSON' group by film.rating having film.rating='R'; 

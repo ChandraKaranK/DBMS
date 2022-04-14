@@ -1,0 +1,77 @@
+Module 11 assignment
+
+1. 
+
+i) Insertion anamoly
+ If we want to add new ProvNo details, it can't be added because, it requires a patient visit to include these details. 'Prov' details can't be added until there is a patient visited them.
+ 
+ ii) Update anamoly
+ 
+ If patient city need to be changed i.e consider PatNo 1 whose city is DENVER and to be changed to 'STANLEY', it requires multiple rows in database to be updated due to redundancy and may lead to partial updates in worst cases.
+ 
+ iii) Delete anamoly
+ 
+ If we delete 'VisitNo v82110' tuple, it will delete the data related to 'ProvNo D3' and may result in incomplete database.
+ 
+ 2.
+ 
+ PatNo->PatAge  	 All the tuples in table satisfy the functional dependency.
+ PatZip->PatCity 	 All the tuples in table satisfy the functional dependency.
+ VisitNo->VisitDate 	 All the tuples in table satisfy the functional dependency.
+ PatNo->PatZip          All the tuples in table satisfy the functional dependency.
+ ProvNo->ProvSpeciality All the tuples in table satisfy the functional dependency.
+ VisitNo->PatNo         All the tuples in table satisfy the functional dependency.
+ VisitNo,ProvNo->Diagnosis All the tuples in table satisfy the functional dependency.
+ ProvNo->ProvEmail      All the tuples in table satisfy the functional dependency.
+ ProvEmail->ProvNo      All the tuples in table satisfy the functional dependency.    
+ 
+ Tables:
+ 
+ Table 1: 
+ Diagnosis(VisitNo,ProvNo,Diagnosis,
+ (VisitNo,ProvNo) PRIMARY KEY
+ ProvNo FOREIGN KEY REFERENCES Prov
+ PatNo FOREIGN KEY REFERENCES Patient
+ VisitNo FOREIGN KEY REFERENCES Visit)
+ 
+ Table 2:
+ Prov(ProvNo PRIMARY KEY,ProvSpeciality, ProvEmail)
+ 
+ Table 3:
+ Patient(PatNo PRIMARY KEY,PatAge,PatCity,PatZip)
+ 
+ Table 4:
+ Visit(VisitNo,VisitDate,PatNo
+ PatNo FOREIGN KEY REFERENCES Patient
+ )
+ 
+ 3.	Student (StdNo, StdName, StdEmail, StdAddress, StdCity, StdState, StdZip )
+	Lender(LenderNo, LenderName)
+	Institution(InstNo, InstName, InstMascot)
+
+There is a trivial dependency among StdNo,StdEmail and StdName
+Student city can determine the zipcode and state of student and therefore the table can be splitted as below:
+
+BCNF TABLES:
+
+Student (StdNo, StdName, StdAddress, StdCity)
+StudentMail(StdNo,StdEmail)
+City (city,zip,state)
+Lender(LenderNo, LenderName)
+Institution(InstNo, InstName, InstMascot)
+
+4. Functional Dependencies with column 'OrdNo' as determinant
+
+OrdNo -> ItemNo       Tuples 1 and 2 falsify this FD
+OrdNo -> QuantityOrd  Tuples 3 and 4 falsify this FD
+OrdNo -> CustNo       All tuples satisfy this FD
+OrdNo -> CustBal      All tuples satisfy this FD
+OrdNo -> CustDisc     All tuples satisfy this FD	      
+OrdNo -> ItemPrice    Tuples 1 and 2 falsify this FD
+OrdNo -> OrdDate      All tuples satisfy this FD
+
+
+	
+
+ 
+ 
